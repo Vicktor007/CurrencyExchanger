@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
+   <children>
+      <VBox prefHeight="635.0" prefWidth="265.0" styleClass="gardient-background" stylesheets="@css/styling.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="101.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/euro-64.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#fdfdfd" layoutX="33.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CurrencyConverter">
+                     <font>
+                        <Font name="Times New Roman Italic" size="26.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Button fx:id="sbConvBtn" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventSideBar" prefHeight="43.0" prefWidth="265.0" text="Converter" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/paper-32.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="-1.0" right="60.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="sbSymbCurr" layoutX="10.0" layoutY="210.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventSideBar" prefHeight="43.0" prefWidth="265.0" text="Currency Symbols" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/bill-32.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="-1.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="sbHistCurr" layoutX="10.0" layoutY="210.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventSideBar" prefHeight="43.0" prefWidth="265.0" text="Currency History" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/chart-2-32.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="-1.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Text fill="#f2f2f2" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="260.0">
+               <font>
+                  <Font name="Nirmala UI Semilight" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="200.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
+      <Pane layoutX="265.0" layoutY="36.0" prefHeight="126.0" prefWidth="681.0" style="-fx-background-color: #7156dd;" stylesheets="@css/styling.css" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="-3.0">
+         <children>
+            <Text fx:id="tbTitle1" fill="#f2f2f2" layoutX="38.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home/Converter">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="tbTitle2" fill="WHITE" layoutX="38.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Converter">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+         </children></Pane>
+      <AnchorPane fx:id="anchorPaneConv" layoutX="265.0" layoutY="204.0" prefHeight="255.0" prefWidth="655.0" style="-fx-background-radius: 10;">
+         <children>
+            <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txFieldAmount" layoutX="26.0" layoutY="61.0" prefHeight="35.0" prefWidth="150.0" promptText="Enter Amount" style="-fx-background-color: #ffffff; -fx-border-color: #000000;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Text layoutX="197.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="comboBoxFrom" layoutX="197.0" layoutY="62.0" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
+            <ComboBox fx:id="comboBoxTo" layoutX="393.0" layoutY="62.0" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
+            <Text layoutX="414.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="convertBtn" layoutX="491.0" layoutY="204.0" mnemonicParsing="false" onAction="#eventConvBtn" stylesheets="@css/styling.css" text="Convert" textFill="WHITE" />
+            <Text fx:id="convLabel1" fill="#655f5f" layoutX="32.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5.3 EUR" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="convLabel2" layoutX="32.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="742.600987 DZD" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="convLabel3" fill="#655f5f" layoutX="35.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1DZD = 0.005 EUR" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneSymbCurr" layoutX="265.0" layoutY="241.0" prefHeight="378.0" prefWidth="676.0" visible="false">
+         <children>
+            <Text layoutX="20.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txFieldSearch" layoutX="14.0" layoutY="63.0" prefHeight="35.0" prefWidth="150.0" promptText="Enter The Symbol" style="-fx-background-color: #ffffff; -fx-border-color: #000000;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="searchBtn" layoutX="178.0" layoutY="69.0" mnemonicParsing="false" onAction="#eventSearchBtn" stylesheets="@css/styling.css" text="search" textFill="WHITE" />
+            <TableView fx:id="tableView" layoutX="14.0" layoutY="121.0" prefHeight="200.0" prefWidth="498.0" stylesheets="@css/styling.css">
+              <columns>
+                <TableColumn fx:id="col1Symbols" prefWidth="246.0" text="Symbols" />
+                <TableColumn fx:id="col2Signification" minWidth="0.0" prefWidth="251.0" text="SIGNS" />
+              </columns>
+               <styleClass>
+                  <String fx:value="column-header-background" />
+                  <String fx:value="column-header" />
+               </styleClass>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneHistCurr" layoutX="265.0" layoutY="269.0" prefHeight="359.0" prefWidth="676.0" visible="false">
+         <children>
+            <ComboBox fx:id="comboBoxChooSymb" layoutX="23.0" layoutY="55.0" onAction="#eventComboBoxGraph" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
+            <Text layoutX="23.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Symbol">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <LineChart fx:id="lineChart" layoutX="23.0" layoutY="126.0" prefHeight="186.0" prefWidth="612.0" title="Last Day Changing Rate">
+              <xAxis>
+                <CategoryAxis label="DAYS" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="RATES" side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
