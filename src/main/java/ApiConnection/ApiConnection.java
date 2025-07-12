@@ -1,5 +1,7 @@
 package ApiConnection;
 
+import repository.CurrencyApiProvider;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 
-public class ApiConnection {
+public class ApiConnection implements CurrencyApiProvider {
     private final String url;
     private final String apiKey;
 

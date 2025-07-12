@@ -1,6 +1,8 @@
 package controllers;
 
 import ApiConnection.*;
+import ApiParsers.FixerJsonParser;
+import ApiParsers.OpenExchangeJsonParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,8 @@ import models.Currency;
 import models.CurrencyHistory;
 import repository.Converter;
 import repository.ConverterImp;
+import repository.CurrencyApiProvider;
+import repository.CurrencyJsonParser;
 import services.CurrencyHistoryService;
 import services.CurrencyService;
 import utility.ConfigLoader;
@@ -97,7 +101,8 @@ public class DashboardController implements Initializable {
 
 
 
-
+    CurrencyApiProvider provider;
+    CurrencyJsonParser parser;
     List<Currency> currencyList;
     CurrencyService currencyService;
     private final Integer DAYS=8;
@@ -106,13 +111,25 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL uri, ResourceBundle resourceBundle) {
         try {
-            String url = ConfigLoader.get("api.url");
-            String apiKey = ConfigLoader.get("api.key");
+            String fixerUrl = ConfigLoader.get("fixer.api.url");
+            String fixerKey = ConfigLoader.get("fixer.api.key");
+            String openUrl = ConfigLoader.get("open.api.url");
+            String openKey = ConfigLoader.get("open.api.key");
 
-        ApiConnection apiConnection = new ApiConnection(url, apiKey);
-        JsonConversion jsonConversion = new JsonConversion();
-        Converter converter = new ConverterImp(apiConnection, jsonConversion);
-        currencyService = new CurrencyService(converter);
+
+            try {
+                provider = new ApiConnection(fixerUrl, fixerKey);
+                parser = new FixerJsonParser();
+                provider.getRate("USD", "NGN", 1.0); // Ping test
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + "trying second api");
+                provider = new OpenExchangeApiConnection(openUrl, openKey);
+                parser = new OpenExchangeJsonParser();
+            }
+
+            Converter converter = new ConverterImp(provider, parser);
+            currencyService = new CurrencyService(converter);
+            CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
 
             currencyList = currencyService.getAllCurrencies();
             List<String> symbolsList = currencyService.getAllSymbolsAndSignifications(currencyList);
@@ -121,7 +138,7 @@ public class DashboardController implements Initializable {
             comboBoxChooSymb.getItems().addAll(symbolsList);
             fillCurrencyTableView(currencyList);
 
-            CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
+//            CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
             comboBoxChooSymb.setOnAction(event -> {
                 try {
 
