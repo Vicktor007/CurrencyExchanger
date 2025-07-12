@@ -113,7 +113,7 @@
                </font>
             </Text>
          </children></Pane>
-      <AnchorPane fx:id="anchorPaneConv" layoutX="265.0" layoutY="204.0" prefHeight="255.0" prefWidth="655.0" style="-fx-background-radius: 10;">
+      <AnchorPane fx:id="anchorPaneConv" layoutX="265.0" layoutY="204.0" prefHeight="255.0" prefWidth="655.0" style="-fx-background-radius: 10;" visible="false">
          <children>
             <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
                <font>
@@ -180,7 +180,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorPaneHistCurr" layoutX="265.0" layoutY="269.0" prefHeight="359.0" prefWidth="676.0" visible="false">
+      <AnchorPane fx:id="anchorPaneHistCurr" layoutX="265.0" layoutY="269.0" prefHeight="359.0" prefWidth="676.0">
          <children>
             <ComboBox fx:id="comboBoxChooSymb" layoutX="23.0" layoutY="55.0" onAction="#eventComboBoxGraph" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
             <Text layoutX="23.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Symbol">
@@ -188,7 +188,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <LineChart fx:id="lineChart" layoutX="23.0" layoutY="126.0" prefHeight="186.0" prefWidth="612.0" title="Last Day Changing Rate">
+            <LineChart fx:id="lineChart" layoutX="23.0" layoutY="111.0" prefHeight="245.0" prefWidth="631.0" title="Last Day Changing Rate">
               <xAxis>
                 <CategoryAxis label="DAYS" side="BOTTOM" />
               </xAxis>

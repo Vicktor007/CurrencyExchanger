@@ -108,8 +108,7 @@ public class DashboardController implements Initializable {
         try {
             String url = ConfigLoader.get("api.url");
             String apiKey = ConfigLoader.get("api.key");
-//            String url = "https://api.apilayer.com/fixer";
-//            String apiKey = "OroYQbaIiP7co3ybJ1aUSO2Jn7ehxKBN";
+
         ApiConnection apiConnection = new ApiConnection(url, apiKey);
         JsonConversion jsonConversion = new JsonConversion();
         Converter converter = new ConverterImp(apiConnection, jsonConversion);
@@ -125,7 +124,9 @@ public class DashboardController implements Initializable {
             CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
             comboBoxChooSymb.setOnAction(event -> {
                 try {
-                    String symbol = comboBoxChooSymb.getSelectionModel().getSelectedItem().toString();
+
+                    String rawSymbol = comboBoxChooSymb.getSelectionModel().getSelectedItem().toString();
+                    String symbol = rawSymbol.substring(rawSymbol.lastIndexOf(" ") + 1);
                     List<CurrencyHistory> list = currencyHistoryService.currencyHistoryData(BASE, DAYS, symbol);
                     drawChart(list,symbol);
                 } catch (IOException ex) {
