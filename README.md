@@ -14,20 +14,6 @@ A JavaFX desktop application that enables users to convert currencies using live
 - Dynamic input and conversion output
 - Error handling for API failures and connectivity issues
 
-## 📁 Project Structure
-
-```bash
-CurrencyExchanger/
-├── .idea/
-├── src/
-│   └── main/
-│       ├── java/
-│       │   └── [Your Java packages and classes]
-│       └── resources/
-├── pom.xml
-└── README.md
-```
-
 ## 🧰 Technologies Used
 
 - Java 24
