@@ -53,7 +53,7 @@ To run the app with the correct module path and access permissions:
 --module-path "(path to your javafx lib folder)" --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics
 ```
 
-Make sure to adjust the path if your SDK is located elsewhere.
+Make sure to adjust the path to where  your SDK is located on your computer.
 
 ### 3. Running the App
 
