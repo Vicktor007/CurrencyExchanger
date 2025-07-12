@@ -18,6 +18,10 @@ public class FixerJsonParser implements CurrencyJsonParser {
 
     @Override
     public List<CurrencyHistory> parseHistoricalRates(StringBuilder response, String base, String symbol) {
+        return getCurrencyHistories(response, base, symbol);
+    }
+
+    static List<CurrencyHistory> getCurrencyHistories(StringBuilder response, String base, String symbol) {
         JSONObject rates = new JSONObject(response.toString()).getJSONObject("rates");
         List<CurrencyHistory> history = new ArrayList<>();
         for (String date : rates.keySet()) {

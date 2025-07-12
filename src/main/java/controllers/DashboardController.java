@@ -108,6 +108,27 @@ public class DashboardController implements Initializable {
     private final Integer DAYS=8;
     private final String BASE="EUR";
 
+
+    private Converter resolveProvider(String fixerUrl, String fixerKey, String openUrl, String openKey) {
+        try {
+            CurrencyApiProvider primary = new ApiConnection(fixerUrl, fixerKey);
+            CurrencyJsonParser fixerParser = new FixerJsonParser();
+
+            // Test with a lightweight ping request
+            primary.getSymbolsWithSignification();
+            System.out.println("✅ Primary API available (Fixer)");
+            return new ConverterImp(primary, fixerParser);
+
+        } catch (Exception ex) {
+            System.out.println("⚠️ Primary API failed: " + ex.getMessage() + "\nSwitching to fallback...");
+
+            CurrencyApiProvider fallback = new OpenExchangeApiConnection(openUrl, openKey);
+            CurrencyJsonParser openParser = new OpenExchangeJsonParser();
+            return new ConverterImp(fallback, openParser);
+        }
+    }
+
+
     @Override
     public void initialize(URL uri, ResourceBundle resourceBundle) {
         try {
@@ -117,19 +138,14 @@ public class DashboardController implements Initializable {
             String openKey = ConfigLoader.get("open.api.key");
 
 
-            try {
-                provider = new ApiConnection(fixerUrl, fixerKey);
-                parser = new FixerJsonParser();
-                provider.getRate("USD", "NGN", 1.0); // Ping test
-            } catch (Exception e) {
-                System.out.println(e.getMessage() + "trying second api");
-                provider = new OpenExchangeApiConnection(openUrl, openKey);
-                parser = new OpenExchangeJsonParser();
-            }
-
-            Converter converter = new ConverterImp(provider, parser);
+            Converter converter = resolveProvider(fixerUrl, fixerKey, openUrl, openKey);
             currencyService = new CurrencyService(converter);
             CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
+
+
+//            Converter converter = new ConverterImp(provider, parser);
+//            currencyService = new CurrencyService(converter);
+//            CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
 
             currencyList = currencyService.getAllCurrencies();
             List<String> symbolsList = currencyService.getAllSymbolsAndSignifications(currencyList);

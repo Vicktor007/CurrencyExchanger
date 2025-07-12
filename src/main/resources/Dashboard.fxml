@@ -113,7 +113,7 @@
                </font>
             </Text>
          </children></Pane>
-      <AnchorPane fx:id="anchorPaneConv" layoutX="265.0" layoutY="204.0" prefHeight="255.0" prefWidth="655.0" style="-fx-background-radius: 10;" visible="false">
+      <AnchorPane fx:id="anchorPaneConv" layoutX="265.0" layoutY="204.0" prefHeight="255.0" prefWidth="655.0" style="-fx-background-radius: 10;">
          <children>
             <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
                <font>
@@ -155,7 +155,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorPaneSymbCurr" layoutX="265.0" layoutY="241.0" prefHeight="378.0" prefWidth="676.0" visible="false">
+      <AnchorPane fx:id="anchorPaneSymbCurr" layoutX="268.0" layoutY="169.0" prefHeight="378.0" prefWidth="676.0" visible="false">
          <children>
             <Text layoutX="20.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
                <font>
@@ -180,7 +180,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorPaneHistCurr" layoutX="265.0" layoutY="269.0" prefHeight="359.0" prefWidth="676.0">
+      <AnchorPane fx:id="anchorPaneHistCurr" layoutX="265.0" layoutY="162.0" prefHeight="409.0" prefWidth="676.0" visible="false">
          <children>
             <ComboBox fx:id="comboBoxChooSymb" layoutX="23.0" layoutY="55.0" onAction="#eventComboBoxGraph" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
             <Text layoutX="23.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Symbol">
@@ -188,7 +188,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <LineChart fx:id="lineChart" layoutX="23.0" layoutY="111.0" prefHeight="245.0" prefWidth="631.0" title="Last Day Changing Rate">
+            <LineChart fx:id="lineChart" layoutX="22.0" layoutY="129.0" prefHeight="245.0" prefWidth="631.0" title="Last Day Changing Rate">
               <xAxis>
                 <CategoryAxis label="DAYS" side="BOTTOM" />
               </xAxis>
