@@ -109,24 +109,50 @@ public class DashboardController implements Initializable {
     private final String BASE="EUR";
 
 
-    private Converter resolveProvider(String fixerUrl, String fixerKey, String openUrl, String openKey) {
-        try {
-            CurrencyApiProvider primary = new ApiConnection(fixerUrl, fixerKey);
-            CurrencyJsonParser fixerParser = new FixerJsonParser();
+//    private Converter resolveProvider(String fixerUrl, String fixerKey, String openUrl, String openKey) {
+//        try {
+//            CurrencyApiProvider primary = new ApiConnection(fixerUrl, fixerKey);
+//            CurrencyJsonParser fixerParser = new FixerJsonParser();
+//
+//            // Test with a lightweight ping request
+//            primary.getSymbolsWithSignification();
+//            System.out.println("✅ Primary API available (Fixer)");
+//            return new ConverterImp(primary, fixerParser);
+//
+//        } catch (Exception ex) {
+//            System.out.println("⚠️ Primary API failed: " + ex.getMessage() + "\nSwitching to fallback...");
+//
+//            CurrencyApiProvider fallback = new OpenExchangeApiConnection(openUrl, openKey);
+//            CurrencyJsonParser openParser = new OpenExchangeJsonParser();
+//            return new ConverterImp(fallback, openParser);
+//        }
+//    }
 
-            // Test with a lightweight ping request
-            primary.getSymbolsWithSignification();
+    private Converter resolveProvider(String fixerUrl, String fixerKey, String openUrl, String openKey) {
+        CurrencyApiProvider primary = null;
+        CurrencyJsonParser fixerParser = new FixerJsonParser();
+
+        try {
+            primary = new ApiConnection(fixerUrl, fixerKey);
+            primary.getSymbolsWithSignification(); // Ping test
             System.out.println("✅ Primary API available (Fixer)");
             return new ConverterImp(primary, fixerParser);
-
         } catch (Exception ex) {
-            System.out.println("⚠️ Primary API failed: " + ex.getMessage() + "\nSwitching to fallback...");
+            System.out.println("⚠️ Primary API failed: " + ex.getMessage());
+        }
 
+        // Fallback logic
+        System.out.println("🔄 Switching to fallback API...");
+        try {
             CurrencyApiProvider fallback = new OpenExchangeApiConnection(openUrl, openKey);
             CurrencyJsonParser openParser = new OpenExchangeJsonParser();
             return new ConverterImp(fallback, openParser);
+        } catch (Exception fallbackEx) {
+            System.out.println("⛔ Fallback API also failed: " + fallbackEx.getMessage());
+            throw new RuntimeException("Both APIs failed to initialize.");
         }
     }
+
 
 
     @Override

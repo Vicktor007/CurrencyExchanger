@@ -19,8 +19,7 @@ A JavaFX desktop application that enables users to convert currencies using live
 - Java 24
 - JavaFX SDK 24.0.1
 - IntelliJ IDEA
-- Maven (via `pom.xml`)
-
+- JSON SDK
 ## 📦 External Libraries
 
 1. **JavaFX SDK**
@@ -57,8 +56,7 @@ Make sure to adjust the path to where  your SDK is located on your computer.
 
 ### 3. Running the App
 
-- Build the project using IntelliJ's build system or Maven.
-- Run the main class (often something like `Main.java` or `App.java`).
+- Run the main class in `Main.java`.
 
 ## 🧪 Troubleshooting
 
