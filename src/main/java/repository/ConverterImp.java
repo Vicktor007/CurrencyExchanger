@@ -1,6 +1,6 @@
 //package repository;
 //
-//import ApiConnection.*;
+//import FixerApiConnection.*;
 //import models.Currency;
 //import models.CurrencyHistory;
 //
@@ -85,6 +85,7 @@ import models.Currency;
 import models.CurrencyHistory;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -99,13 +100,13 @@ public class ConverterImp implements Converter {
     }
 
     @Override
-    public Double convert(String from, String to, Double value) throws IOException {
+    public Double convert(String from, String to, Double value) throws IOException, URISyntaxException {
         StringBuilder response = apiProvider.getRate(from, to, value);
         return jsonParser.parseConversionRate(response);
     }
 
     @Override
-    public List<Currency> getAllCurrencies() throws IOException {
+    public List<Currency> getAllCurrencies() throws IOException, URISyntaxException {
         StringBuilder response = apiProvider.getSymbolsWithSignification();
         return jsonParser.parseCurrencyObjects(response); // optional parsing function
     }
@@ -119,7 +120,7 @@ public class ConverterImp implements Converter {
     }
 
     @Override
-    public List<CurrencyHistory> getHistory(String base, Integer duration, String symbol) throws IOException {
+    public List<CurrencyHistory> getHistory(String base, Integer duration, String symbol) throws IOException, URISyntaxException {
         LocalDate today = LocalDate.now();
         LocalDate startDate = today.minusDays(duration);
         StringBuilder response = apiProvider.getCurrencyHistory(base, startDate, today, symbol);

@@ -4,6 +4,7 @@ import models.CurrencyHistory;
 import repository.Converter;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class CurrencyHistoryService {
@@ -12,7 +13,7 @@ public class CurrencyHistoryService {
         this.converter = converter;
     }
     public List<CurrencyHistory> currencyHistoryData(String base
-            , Integer durationDay, String symbol) throws IOException {
+            , Integer durationDay, String symbol) throws IOException, URISyntaxException {
         return converter.getHistory(base, durationDay, symbol);
     }
 

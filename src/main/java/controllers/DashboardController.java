@@ -23,8 +23,10 @@ import repository.CurrencyJsonParser;
 import services.CurrencyHistoryService;
 import services.CurrencyService;
 import utility.ConfigLoader;
+import utility.CurrencyConverterFactory;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -109,49 +111,6 @@ public class DashboardController implements Initializable {
     private final String BASE="EUR";
 
 
-//    private Converter resolveProvider(String fixerUrl, String fixerKey, String openUrl, String openKey) {
-//        try {
-//            CurrencyApiProvider primary = new ApiConnection(fixerUrl, fixerKey);
-//            CurrencyJsonParser fixerParser = new FixerJsonParser();
-//
-//            // Test with a lightweight ping request
-//            primary.getSymbolsWithSignification();
-//            System.out.println("✅ Primary API available (Fixer)");
-//            return new ConverterImp(primary, fixerParser);
-//
-//        } catch (Exception ex) {
-//            System.out.println("⚠️ Primary API failed: " + ex.getMessage() + "\nSwitching to fallback...");
-//
-//            CurrencyApiProvider fallback = new OpenExchangeApiConnection(openUrl, openKey);
-//            CurrencyJsonParser openParser = new OpenExchangeJsonParser();
-//            return new ConverterImp(fallback, openParser);
-//        }
-//    }
-
-    private Converter resolveProvider(String fixerUrl, String fixerKey, String openUrl, String openKey) {
-        CurrencyApiProvider primary = null;
-        CurrencyJsonParser fixerParser = new FixerJsonParser();
-
-        try {
-            primary = new ApiConnection(fixerUrl, fixerKey);
-            primary.getSymbolsWithSignification(); // Ping test
-            System.out.println("✅ Primary API available (Fixer)");
-            return new ConverterImp(primary, fixerParser);
-        } catch (Exception ex) {
-            System.out.println("⚠️ Primary API failed: " + ex.getMessage());
-        }
-
-        // Fallback logic
-        System.out.println("🔄 Switching to fallback API...");
-        try {
-            CurrencyApiProvider fallback = new OpenExchangeApiConnection(openUrl, openKey);
-            CurrencyJsonParser openParser = new OpenExchangeJsonParser();
-            return new ConverterImp(fallback, openParser);
-        } catch (Exception fallbackEx) {
-            System.out.println("⛔ Fallback API also failed: " + fallbackEx.getMessage());
-            throw new RuntimeException("Both APIs failed to initialize.");
-        }
-    }
 
 
 
@@ -164,7 +123,9 @@ public class DashboardController implements Initializable {
             String openKey = ConfigLoader.get("open.api.key");
 
 
-            Converter converter = resolveProvider(fixerUrl, fixerKey, openUrl, openKey);
+
+            Converter converter = CurrencyConverterFactory.resolveProvider(fixerUrl, fixerKey, openUrl, openKey);
+
             currencyService = new CurrencyService(converter);
             CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
 
@@ -190,9 +151,11 @@ public class DashboardController implements Initializable {
                     drawChart(list,symbol);
                 } catch (IOException ex) {
                     Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
                 }
             });
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

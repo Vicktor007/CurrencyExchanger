@@ -4,6 +4,7 @@ import models.Currency;
 import repository.Converter;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,10 +14,10 @@ public class CurrencyService {
     public CurrencyService(Converter converter) {
         this.converter = converter;
     }
-    public Double convert(String from,String to,Double amount) throws IOException {
+    public Double convert(String from,String to,Double amount) throws IOException, URISyntaxException {
         return  converter.convert(from, to, amount);
     }
-    public List<Currency> getAllCurrencies() throws IOException{
+    public List<Currency> getAllCurrencies() throws IOException, URISyntaxException {
         return converter.getAllCurrencies();
     }
 

@@ -1,18 +1,13 @@
-import ApiConnection.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.Currency;
-import repository.Converter;
-import repository.ConverterImp;
-import services.CurrencyHistoryService;
-import services.CurrencyService;
+
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
+
 
 public class Main extends Application  {
     public static void main(String[] args) throws IOException {
