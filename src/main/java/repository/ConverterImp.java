@@ -102,28 +102,46 @@ public class ConverterImp implements Converter {
     @Override
     public Double convert(String from, String to, Double value) throws IOException, URISyntaxException {
         StringBuilder response = apiProvider.getRate(from, to, value);
+        System.out.println(response);
         return jsonParser.parseConversionRate(response);
     }
 
     @Override
     public List<Currency> getAllCurrencies() throws IOException, URISyntaxException {
         StringBuilder response = apiProvider.getSymbolsWithSignification();
+        System.out.println(response);
         return jsonParser.parseCurrencyObjects(response); // optional parsing function
     }
 
     @Override
     public List<String> getAllSymbolsWithSignifications(List<Currency> currencies) {
-        return currencies.stream()
-                .sorted(Comparator.comparing(Currency::getSignification)) // 🔽 Sort by signification
+        List<String> result = currencies.stream()
+                .sorted(Comparator.comparing(Currency::getSignification)) // sort by signification
                 .map(currency -> currency.getSignification() + " " + currency.getSymbol())
                 .toList();
+
+        // Print result
+        result.forEach(System.out::println);
+
+        return result;
     }
+
+
+//    @Override
+//    public List<String> getAllSymbolsWithSignifications(List<Currency> currencies) {
+//        System.out.println();
+//        return currencies.stream()
+//                .sorted(Comparator.comparing(Currency::getSignification)) // 🔽 Sort by signification
+//                .map(currency -> currency.getSignification() + " " + currency.getSymbol())
+//                .toList();
+//    }
 
     @Override
     public List<CurrencyHistory> getHistory(String base, Integer duration, String symbol) throws IOException, URISyntaxException {
         LocalDate today = LocalDate.now();
         LocalDate startDate = today.minusDays(duration);
         StringBuilder response = apiProvider.getCurrencyHistory(base, startDate, today, symbol);
+        System.out.println(response);
         return jsonParser.parseHistoricalRates(response, base, symbol);
     }
 }

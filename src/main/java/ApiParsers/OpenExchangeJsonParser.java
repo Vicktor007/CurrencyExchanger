@@ -5,7 +5,6 @@ import models.CurrencyHistory;
 import org.json.JSONObject;
 import repository.CurrencyJsonParser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

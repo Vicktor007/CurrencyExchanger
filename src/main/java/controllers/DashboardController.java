@@ -1,8 +1,6 @@
 package controllers;
 
-import ApiConnection.*;
-import ApiParsers.FixerJsonParser;
-import ApiParsers.OpenExchangeJsonParser;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -103,8 +101,6 @@ public class DashboardController implements Initializable {
 
 
 
-    CurrencyApiProvider provider;
-    CurrencyJsonParser parser;
     List<Currency> currencyList;
     CurrencyService currencyService;
     private final Integer DAYS=8;
@@ -129,10 +125,6 @@ public class DashboardController implements Initializable {
             currencyService = new CurrencyService(converter);
             CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
 
-
-//            Converter converter = new ConverterImp(provider, parser);
-//            currencyService = new CurrencyService(converter);
-//            CurrencyHistoryService currencyHistoryService = new CurrencyHistoryService(converter);
 
             currencyList = currencyService.getAllCurrencies();
             List<String> symbolsList = currencyService.getAllSymbolsAndSignifications(currencyList);
